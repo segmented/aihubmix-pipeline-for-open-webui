@@ -83,7 +83,7 @@ class Pipeline:
         else:
             return []
             
-    def pipe(
+  def pipe(
         self, user_message: str, model_id: str, messages: List[dict], body: dict
     ) -> Union[str, Generator, Iterator]:
         # This is where you can add your custom pipelines like RAG.
@@ -92,14 +92,11 @@ class Pipeline:
         print(messages)
         print(user_message)
 
-        OPENAI_API_KEY = self.valves.AIHUBMAX_API_KEY
-        MODEL = "gpt-4o"
-
         headers = {}
-        headers["Authorization"] = f"Bearer {AIHUBMAX_API_KEY}"
+        headers["Authorization"] = f"Bearer {self.valves.AIHUBMAX_API_KEY}"
         headers["Content-Type"] = "application/json"
 
-        payload = {**body, "model": MODEL}
+        payload = {**body, "model": model_id}
 
         if "user" in payload:
             del payload["user"]
@@ -114,7 +111,7 @@ class Pipeline:
             r = requests.post(
                 # AiHubMix DOC: https://doc.aihubmix.com
                 url="https://aihubmix.com/v1/chat/completions",
-                json=payload,
+           json=payload,
                 headers=headers,
                 stream=True,
             )
