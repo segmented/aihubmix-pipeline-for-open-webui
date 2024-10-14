@@ -62,7 +62,8 @@ class Pipeline:
                     }
                     for model in models["data"]
                     # defaults to all models
-                    #if "gpt" in model["id"]
+                    # or only lists gpt like this:
+                    # if "gpt" in model["id"]
                 ]
 
             except Exception as e:
@@ -71,7 +72,7 @@ class Pipeline:
                 return [
                     {
                         "id": "error",
-                        "name": "Could not fetch models from OpenAI, please update the API Key in the valves.",
+                        "name": "Could not fetch models from AiHubMix, please update the API Key in the valves.",
                     },
                 ]
         else:
