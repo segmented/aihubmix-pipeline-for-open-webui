@@ -1,5 +1,4 @@
 from typing import List, Union, Generator, Iterator
-from schemas import OpenAIChatMessage
 from pydantic import BaseModel
 
 import os
@@ -15,7 +14,7 @@ class Pipeline:
 
     def __init__(self):
         self.type = "manifold"
-        self.name = "AiHubMix:"
+        self.name = "AiHubMix: "
 
         self.valves = self.Valves(
             **{
@@ -62,6 +61,7 @@ class Pipeline:
                         "name": model["name"] if "name" in model else model["id"],
                     }
                     for model in models["data"]
+                    # defaults to all models
                     #if "gpt" in model["id"]
                 ]
 
