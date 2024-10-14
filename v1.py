@@ -1,5 +1,7 @@
 from typing import List, Union, Generator, Iterator
+from schemas import OpenAIChatMessage
 from pydantic import BaseModel
+
 import os
 import requests
 
@@ -68,7 +70,7 @@ class Pipeline:
                         "name": model["name"] if "name" in model else model["id"],
                     }
                     for model in models["data"]
-                    if "gpt" in model["id"]
+                    #if "gpt" in model["id"]
                 ]
 
             except Exception as e:
