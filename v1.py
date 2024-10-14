@@ -14,7 +14,9 @@ class Pipeline:
         pass
 
     def __init__(self):
-        self.name = "AiHubMix"
+        self.type = "manifold"
+        self.name = "AiHubMix:"
+
         self.valves = self.Valves(
             **{
                 "AIHUBMAX_API_KEY": os.getenv(
@@ -42,16 +44,6 @@ class Pipeline:
         self.pipelines = self.get_aihubmix_models()
         pass
 
-    async def on_startup(self):
-        # This function is called when the server is started.
-        print(f"on_startup:{__name__}")
-        pass
-
-    async def on_shutdown(self):
-        # This function is called when the server is stopped.
-        print(f"on_shutdown:{__name__}")
-        pass
-        
     def get_aihubmix_models(self):
         if self.valves.AIHUBMAX_API_KEY:
             try:
@@ -84,8 +76,8 @@ class Pipeline:
                 ]
         else:
             return []
-            
-  def pipe(
+
+    def pipe(
         self, user_message: str, model_id: str, messages: List[dict], body: dict
     ) -> Union[str, Generator, Iterator]:
         # This is where you can add your custom pipelines like RAG.
@@ -113,7 +105,7 @@ class Pipeline:
             r = requests.post(
                 # AiHubMix DOC: https://doc.aihubmix.com
                 url="https://aihubmix.com/v1/chat/completions",
-           json=payload,
+                json=payload,
                 headers=headers,
                 stream=True,
             )
